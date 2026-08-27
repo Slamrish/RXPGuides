@@ -278,12 +278,14 @@ end
 
 local _G = _G
 
-local GetNumQuests = C_QuestLog.GetNumQuestLogEntries or
+-- SuperWoW/OctoWoW: C_QuestLog and C_DateAndTime are provided by OctoCompat.lua on 1.12 clients
+local _CQL = C_QuestLog or {}
+local GetNumQuests = _CQL.GetNumQuestLogEntries or
                          _G.GetNumQuestLogEntries
 local GetQuestLogTitle = _G.GetQuestLogTitle
 local GetNumDayEvents = _G.C_Calendar and _G.C_Calendar.GetNumDayEvents
 local GetDayEvent = _G.C_Calendar and _G.C_Calendar.GetDayEvent
-local GetCurrentCalendarTime = _G.C_DateAndTime.GetCurrentCalendarTime
+local GetCurrentCalendarTime = _G.C_DateAndTime and _G.C_DateAndTime.GetCurrentCalendarTime
 --local OpenCalendar = _G.C_Calendar and _G.C_Calendar.OpenCalendar
 local GossipSelectOption = _G.SelectGossipOption
 local GossipGetOptions = C_GossipInfo and C_GossipInfo.GetOptions or _G.GetGossipOptions
@@ -6713,6 +6715,8 @@ function addon.functions.holiday(self, text, eventId, reverse)
     local step = element.step
 
     local event
+    -- SuperWoW/OctoWoW: GetCurrentCalendarTime is nil on 1.12 clients; calendar steps are skipped
+    if not GetCurrentCalendarTime then return false end
     local monthDay = GetCurrentCalendarTime().monthDay
 
     -- Async relies on CALENDAR_UPDATE_EVENT_LIST

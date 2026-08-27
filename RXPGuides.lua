@@ -33,7 +33,8 @@ local GetSpellSubtext = C_Spell and C_Spell.GetSpellSubtext or _G.GetSpellSubtex
 local IsCurrentSpell = C_Spell and C_Spell.IsCurrentSpell or _G.IsCurrentSpell
 local IsSpellKnown = C_Spell and C_Spell.IsSpellKnown or _G.IsSpellKnown
 local IsPlayerSpell = C_Spell and C_Spell.IsPlayerSpell or _G.IsPlayerSpell
-local NewTicker = C_Timer.NewTicker
+-- SuperWoW/OctoWoW: C_Timer is provided by OctoCompat.lua when missing on 1.12 clients
+local NewTicker = C_Timer and C_Timer.NewTicker
 local messageList = {}
 
 local function MessageHandler(message,...)
@@ -200,7 +201,8 @@ addon.player = {
     level = UnitLevel("player"),
     maxlevel = maxLevel,
     season = addon.GetSeason(),
-    beta = GetCurrentRegion() >= 20,
+    -- SuperWoW/OctoWoW: GetCurrentRegion may not exist on 1.12 clients
+    beta = GetCurrentRegion and GetCurrentRegion() >= 20 or false,
     lang = GetLocale():sub(1,2),
     hardcore = C_GameRules and C_GameRules.IsHardcoreActive and C_GameRules.IsHardcoreActive(),
 }
