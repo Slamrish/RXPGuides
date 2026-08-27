@@ -217,9 +217,8 @@ end
 
 -- RequestLoadQuestByID / GetQuestObjectives / GetTitleForQuestID / GetQuestInfo:
 -- Not available in 1.12 — provide stubs so guarded callsites short-circuit.
-if not C_QuestLog.RequestLoadQuestByID then
-    C_QuestLog.RequestLoadQuestByID = nil  -- callers guard with "if C_QuestLog.RequestLoadQuestByID"
-end
+-- RXPGuides guards C_QuestLog.RequestLoadQuestByID with an explicit nil check,
+-- so leaving it absent (nil) is intentional.
 if not C_QuestLog.GetQuestObjectives then
     C_QuestLog.GetQuestObjectives = function() return nil end
 end
@@ -447,10 +446,4 @@ if not C_Item then
     C_Item = {
         GetItemInfo = _G.GetItemInfo,
     }
-end
-
--- Expose detection flag for any other addon module that needs it
-local _, rxpAddon = ...
-if rxpAddon then
-    rxpAddon.isLegacyClient = isLegacyClient
 end
