@@ -2,9 +2,11 @@ local addonName, addon = ...
 
 local _G = _G
 
-local GetNumQuests = C_QuestLog.GetNumQuestLogEntries or
+-- SuperWoW/OctoWoW: C_QuestLog is provided by OctoCompat.lua on 1.12 clients
+local _CQL = C_QuestLog or {}
+local GetNumQuests = _CQL.GetNumQuestLogEntries or
                          _G.GetNumQuestLogEntries
-local GetQuestLogTitle = C_QuestLog.GetInfo or _G.GetQuestLogTitle
+local GetQuestLogTitle = _CQL.GetInfo or _G.GetQuestLogTitle
 
 local L = addon.locale.Get
 local maxQuests = 25

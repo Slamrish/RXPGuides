@@ -2,6 +2,7 @@
 ## Interface-Mists: 50504
 ## Interface-TBC: 20506
 ## Interface-Classic: 11509
+## X-Compatible-With: 11200
 ## Title: RestedXP Guides
 ## Title-zhCN: RestedXP 指南
 ## Notes: In-game leveling guides
@@ -24,6 +25,7 @@
 ## X-Curse-Project-ID: 486246
 ## X-Wago-ID: ZKbebq61
 
+OctoCompat.lua
 libs\embeds_Mainline.xml [AllowLoadGameType mainline]
 libs\embeds.xml [AllowLoadGameType classic]
 locale\locales.xml
